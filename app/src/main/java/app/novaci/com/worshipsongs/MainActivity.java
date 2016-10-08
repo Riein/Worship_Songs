@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private ArrayList<SongInfo> EnglishSongs;
+    private ArrayList<SongInfo> UkrainianSongs;
+    private ArrayList<SongInfo> RussianSongs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         final int PAGE_COUNT = 3;
-        private String titles[] = new String[] {"Ukrainian", "English", "Etc"};
+        private String titles[] = new String[] {"English", "Ukrainian", "Russian"};
         private Context context;
 
         public SectionsPagerAdapter(FragmentManager fm, Context context) {
