@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="app.novaci.com.worshipsongs.MainActivity$PlaceholderFragment">
+
+    <ListView android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/firstLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/secondLine"
+        android:layout_width="fill_parent"
+        android:layout_height="26dip"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/firstLine"
+        android:paddingTop="5dp"
+        android:textSize="12sp" />
+
+
+
+</RelativeLayout>
