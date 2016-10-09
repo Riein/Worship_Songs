@@ -17,10 +17,36 @@ import java.util.ArrayList;
 public class SongPager extends ListFragment {
 
     ArrayList<RowItem> rowItems;
+    String m_language;
 
     public SongPager() {
 
     }
+
+    public static SongPager newInstance(String language) {
+        SongPager s = new SongPager();
+
+        // Supply language as an argument
+        Bundle args = new Bundle();
+        args.putString("language", language);
+        s.setArguments(args);
+
+        return s;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        m_language = getArguments() != null ? getArguments().getString("language") : "English";
+    }
+
+    /**
+     * onCreateView method
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return Inflated view
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +61,13 @@ public class SongPager extends ListFragment {
 
         rowItems = new ArrayList<>();
         //Read Info from database?
+        if (m_language == "English") {
+
+        } else if (m_language == "Ukrainian") {
+
+        } else if (m_language == "Russian") {
+
+        }
         String titles[] = getResources().getStringArray(R.array.russiantitles);
         String descriptions[] = getResources().getStringArray(R.array.russiantext);
 

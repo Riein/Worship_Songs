@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ListView list1 = (ListView) findViewById(android.R.id.list);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
@@ -121,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return new SongPager();
+            // Return a SongPager instance and pass in which language is being used
+            return SongPager.newInstance(titles[position]);
             //return PlaceholderFragment.newInstance(position + 1);
         }
 
@@ -135,74 +135,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return titles[position];
-        }
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends ListFragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        ArrayList<RowItem> rowItems;
-        ListView m_ListView;
-
-
-        private int m_page;
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            m_page = getArguments().getInt(ARG_SECTION_NUMBER);
-            setHasOptionsMenu(true);
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState){
-            super.onActivityCreated(savedInstanceState);
-
-            rowItems = new ArrayList<>();
-            //Read Info from database?
-            String titles[] = getResources().getStringArray(R.array.russiantitles);
-            String descriptions[] = getResources().getStringArray(R.array.russiantext);
-
-            for (int i = 0; i < 2; i++) {
-                RowItem item = new RowItem(titles[i], descriptions[i]);
-                rowItems.add(item);
-            }
-            CustomAdapter adapter = new CustomAdapter(getActivity(), rowItems);
-            setListAdapter(adapter);
-        }
-
-        @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            super.onCreateOptionsMenu(menu, inflater);
-            getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
         }
     }
 }
