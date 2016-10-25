@@ -39,7 +39,7 @@ public final class SongReaderContract {
     /**
      * Created by Sasha on 10/9/2016.
      */
-    public class SongDBHelper extends SQLiteOpenHelper {
+    public static class SongDBHelper extends SQLiteOpenHelper {
 
 
         // If you change the database schema, you must increment the database version.

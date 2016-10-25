@@ -2,6 +2,9 @@ package app.novaci.com.worshipsongs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<SongInfo> EnglishSongs;
     private ArrayList<SongInfo> UkrainianSongs;
     private ArrayList<SongInfo> RussianSongs;
+    SQLiteOpenHelper m_DBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (tabLayout != null)
             tabLayout.setupWithViewPager(mViewPager);
 
+        m_DBHelper = new SongReaderContract.SongDBHelper(this);
 
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //      fab.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +106,31 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    
+    public void readDB(){
+        SQLiteDatabase db = m_DBHelper.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after the query.
+        String[] projection = {
+                SongReaderContract.SongEntry.COLUMN_NAME_UUID,
+                SongReaderContract.SongEntry.COLUMN_NAME_TITLE,
+                SongReaderContract.SongEntry.COLUMN_NAME_TEXT,
+                SongReaderContract.SongEntry.COLUMN_NAME_LANGUAGE,
+                SongReaderContract.SongEntry.COLUMN_NAME_NUMBER
+        };
+
+        String selection = SongReaderContract.SongEntry.COLUMN_NAME_LANGUAGE + " = ?";
+        String[] selectionArgs1 = {"russian"};
+
+        String sortOrder = SongReaderContract.SongEntry.COLUMN_NAME_TITLE + " DESC";
+
+        Cursor c = db.query(SongReaderContract.SongEntry.TABLE_NAME, projection, selection,
+                selectionArgs1, null, null, sortOrder);
+
+        c.moveToFirst();
+        //Add Code to read in data here
+
+    }
   
 
     /**
