@@ -8,14 +8,26 @@ package app.novaci.com.worshipsongs;
 
 public class SongInfo {
 
+    private int song_UUID;
     private String song_title;
     private String song_text;
     private String language;
+    private int number;
 
-    public SongInfo(String title, String text, String language) {
+    public SongInfo(int UUID, String title, String text, String language, int number) {
+        this.song_UUID = UUID;
         this.song_title = title;
         this.song_text = text;
         this.language = language;
+        this.number = number;
+    }
+
+    public int getUUID() {
+        return this.song_UUID;
+    }
+
+    public void setUUID(int UUID) {
+        this.song_UUID = UUID;
     }
 
     public String getTitle() {
@@ -40,5 +52,11 @@ public class SongInfo {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public int getNumber () {return this.number;}
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
