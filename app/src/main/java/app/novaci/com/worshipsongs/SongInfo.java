@@ -14,6 +14,10 @@ public class SongInfo {
     private String language;
     private int number;
 
+    public SongInfo() {
+
+    }
+
     public SongInfo(int UUID, String title, String text, String language, int number) {
         this.song_UUID = UUID;
         this.song_title = title;

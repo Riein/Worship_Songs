@@ -95,35 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-//    public void readDB(){
-//        SQLiteDatabase db = m_DBHelper.getReadableDatabase();
-//
-//        // Define a projection that specifies which columns from the database
-//        // you will actually use after the query.
-//        String[] projection = {
-//                SongEntry.COLUMN_NAME_UUID,
-//                SongEntry.COLUMN_NAME_TITLE,
-//                SongEntry.COLUMN_NAME_TEXT,
-//                SongEntry.COLUMN_NAME_LANGUAGE,
-//                SongEntry.COLUMN_NAME_NUMBER
-//        };
-//
-//        String selection = SongEntry.COLUMN_NAME_LANGUAGE + " = ?";
-//        String[] selectionArgs1 = {"russian"};
-//
-//        String sortOrder = SongEntry.COLUMN_NAME_TITLE + " DESC";
-//
-//        Cursor c = db.query(SongEntry.TABLE_NAME, projection, selection,
-//                selectionArgs1, null, null, sortOrder);
-//
-//        c.moveToFirst();
-//        //Add Code to read in data here
-//        do {
-//            String title = c.getString(0);
-//        } while (c.moveToNext());
-//
-//    }
   
 
     /**
