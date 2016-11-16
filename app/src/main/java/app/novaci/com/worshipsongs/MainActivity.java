@@ -17,8 +17,10 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.setupWithViewPager(mViewPager);
 
         m_DBHelper = new SongDBHelper(this);
+        SongDataSource songDataSource = new SongDataSource(this);
+        List<SongInfo> songInfoList = songDataSource.getAllSongs();
 
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //      fab.setOnClickListener(new View.OnClickListener() {

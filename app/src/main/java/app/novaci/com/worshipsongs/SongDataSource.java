@@ -38,26 +38,35 @@ public class SongDataSource {
         dbHelper.close();
     }
 
-    public SongInfo createSong(int uuid, String title, String text, String language, int number) {
-        ContentValues values = new ContentValues();
-        values.put(SongDBHelper.COLUMN_NAME_UUID, uuid);
-        values.put(SongDBHelper.COLUMN_NAME_TITLE, title);
-        values.put(SongDBHelper.COLUMN_NAME_TEXT, text);
-        values.put(SongDBHelper.COLUMN_NAME_LANGUAGE, language);
-        values.put(SongDBHelper.COLUMN_NAME_NUMBER, number);
+    public List<SongInfo> getSongsByLanguage(String language) {
+        List<SongInfo> songs = new ArrayList<SongInfo>();
 
-        long insertId = database.insert(SongDBHelper.TABLE_NAME, null, values);
+        String[] projection = {
+                SongDBHelper.COLUMN_NAME_UUID,
+                SongDBHelper.COLUMN_NAME_TITLE,
+                SongDBHelper.COLUMN_NAME_TEXT,
+                SongDBHelper.COLUMN_NAME_LANGUAGE,
+                SongDBHelper.COLUMN_NAME_NUMBER
+        };
 
-        Cursor cursor = database.query(SongDBHelper.TABLE_NAME, allColumns, SongDBHelper.COLUMN_NAME_UUID + " = " + insertId, null, null, null, null);
+        String selection = SongDBHelper.COLUMN_NAME_LANGUAGE + " = ?";
+        String[] selectionArgs1 = {language};
+
+        String sortOrder = SongDBHelper.COLUMN_NAME_TITLE + " DESC";
+
+        Cursor cursor = database.query(SongDBHelper.TABLE_NAME, projection, selection,
+                selectionArgs1, null, null, sortOrder);
+
         cursor.moveToFirst();
-        SongInfo newSong = cursorToSong(cursor);
+        while (!cursor.isAfterLast()) {
+            SongInfo songInfo = cursorToSong(cursor);
+            songs.add(songInfo);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
         cursor.close();
 
-        return newSong;
-    }
-
-    public SongInfo getSong(String language) {
-        return null;
+        return songs;
     }
 
     public List<SongInfo> getAllSongs() {
