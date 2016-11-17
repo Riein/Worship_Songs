@@ -31,7 +31,7 @@ public class SongDBHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "songs.db";
+    public static final String DATABASE_NAME = "C:\\Users\\Sasha\\AndroidStudioProjects\\WorshipSongs\\app\\src\\main\\assets\\songs.db";
 
     public SongDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
