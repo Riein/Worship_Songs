@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,13 @@ public class SongDataSource {
         dbHelper = new SongDBHelper(context);
     }
 
-    public void open() throws SQLException {
-        database = dbHelper.getWritableDatabase();
+    public void open() {
+        try {
+            database = dbHelper.getReadableDatabase();
+
+        } catch (SQLException ex) {
+            Log.w("SQLException", ex.fillInStackTrace());
+        }
     }
 
     public void close() {
@@ -58,6 +64,7 @@ public class SongDataSource {
                 selectionArgs1, null, null, sortOrder);
 
         cursor.moveToFirst();
+        SongInfo songInfo1 = cursorToSong(cursor);
         while (!cursor.isAfterLast()) {
             SongInfo songInfo = cursorToSong(cursor);
             songs.add(songInfo);
@@ -70,6 +77,7 @@ public class SongDataSource {
     }
 
     public List<SongInfo> getAllSongs() {
+        this.open();
         List<SongInfo> songs = new ArrayList<SongInfo>();
 
         Cursor cursor = database.query(SongDBHelper.TABLE_NAME, allColumns, null, null, null, null,null);

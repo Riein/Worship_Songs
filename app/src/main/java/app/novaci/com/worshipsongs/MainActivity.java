@@ -65,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
         m_DBHelper = new SongDBHelper(this);
         SongDataSource songDataSource = new SongDataSource(this);
         List<SongInfo> songInfoList = songDataSource.getAllSongs();
-
+        if (!songInfoList.isEmpty()) {
+            SongInfo songInfo = songInfoList.get(0);
+        }
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //      fab.setOnClickListener(new View.OnClickListener() {
 //          @Override

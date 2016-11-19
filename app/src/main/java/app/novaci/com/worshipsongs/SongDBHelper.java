@@ -1,8 +1,11 @@
 package app.novaci.com.worshipsongs;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Sasha on 11/7/2016.
@@ -19,12 +22,12 @@ public class SongDBHelper extends SQLiteOpenHelper {
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE" + TABLE_NAME + " (" +
+            "CREATE TABLE " + TABLE_NAME + " (" +
                     COLUMN_NAME_UUID + " INTEGER PRIMARY KEY," +
                     COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     COLUMN_NAME_LANGUAGE + TEXT_TYPE + COMMA_SEP +
                     COLUMN_NAME_TEXT + TEXT_TYPE + COMMA_SEP +
-                    COLUMN_NAME_NUMBER + " INTEGER" + COMMA_SEP;
+                    COLUMN_NAME_NUMBER + " INTEGER" + ")";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
 
@@ -47,4 +50,5 @@ public class SongDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         onCreate(sqLiteDatabase);
     }
+
 }
