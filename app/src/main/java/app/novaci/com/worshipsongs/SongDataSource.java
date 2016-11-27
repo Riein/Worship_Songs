@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +30,17 @@ public class SongDataSource {
 
     public SongDataSource(Context context) {
         dbHelper = new SongDBHelper(context);
+        try {
+            dbHelper.createDataBase();
+        } catch (IOException e) {
+            throw new Error("Error creating database");
+        }
     }
 
     public void open() {
         try {
-            database = dbHelper.getReadableDatabase();
+            dbHelper.openDataBase();
+            database = dbHelper.getWritableDatabase();
 
         } catch (SQLException ex) {
             Log.w("SQLException", ex.fillInStackTrace());
@@ -43,6 +50,12 @@ public class SongDataSource {
     public void close() {
         dbHelper.close();
     }
+
+    /**
+     * Gets all songs by language from the database
+     * @param language
+     * @return
+     */
 
     public List<SongInfo> getSongsByLanguage(String language) {
         List<SongInfo> songs = new ArrayList<SongInfo>();
@@ -79,8 +92,9 @@ public class SongDataSource {
     public List<SongInfo> getAllSongs() {
         this.open();
         List<SongInfo> songs = new ArrayList<SongInfo>();
-
-        Cursor cursor = database.query(SongDBHelper.TABLE_NAME, allColumns, null, null, null, null,null);
+        String select = "SELECT * FROM songs";
+        Cursor cursor = database.rawQuery(select,null);
+                //database.query(SongDBHelper.TABLE_NAME, allColumns, null, null, null, null,null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
