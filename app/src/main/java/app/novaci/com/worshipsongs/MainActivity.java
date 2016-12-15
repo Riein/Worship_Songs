@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         if (tabLayout != null)
             tabLayout.setupWithViewPager(mViewPager);
 
-        m_DBHelper = new SongDBHelper(this);
         SongDataSource songDataSource = new SongDataSource(this);
         List<SongInfo> songInfoList = songDataSource.getAllSongs();
         if (!songInfoList.isEmpty()) {

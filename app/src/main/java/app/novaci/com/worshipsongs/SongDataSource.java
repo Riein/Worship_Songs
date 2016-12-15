@@ -19,36 +19,26 @@ import java.util.List;
 public class SongDataSource {
 
     private SQLiteDatabase database;
-    private SongDBHelper dbHelper;
+    private DatabaseManager dbHelper;
     private String[] allColumns = {
-            SongDBHelper.COLUMN_NAME_UUID,
-            SongDBHelper.COLUMN_NAME_TITLE,
-            SongDBHelper.COLUMN_NAME_TEXT,
-            SongDBHelper.COLUMN_NAME_LANGUAGE,
-            SongDBHelper.COLUMN_NAME_NUMBER
+            DatabaseManager.COLUMN_NAME_UUID,
+            DatabaseManager.COLUMN_NAME_TITLE,
+            DatabaseManager.COLUMN_NAME_TEXT,
+            DatabaseManager.COLUMN_NAME_LANGUAGE,
+            DatabaseManager.COLUMN_NAME_NUMBER
     };
 
     public SongDataSource(Context context) {
-        dbHelper = new SongDBHelper(context);
-        try {
-            dbHelper.createDataBase();
-        } catch (IOException e) {
-            throw new Error("Error creating database");
-        }
+        dbHelper = new DatabaseManager(context);
     }
 
     public void open() {
         try {
-            dbHelper.openDataBase();
-            database = dbHelper.getWritableDatabase();
+            database = dbHelper.open();
 
         } catch (SQLException ex) {
             Log.w("SQLException", ex.fillInStackTrace());
         }
-    }
-
-    public void close() {
-        dbHelper.close();
     }
 
     /**
@@ -61,19 +51,19 @@ public class SongDataSource {
         List<SongInfo> songs = new ArrayList<SongInfo>();
 
         String[] projection = {
-                SongDBHelper.COLUMN_NAME_UUID,
-                SongDBHelper.COLUMN_NAME_TITLE,
-                SongDBHelper.COLUMN_NAME_TEXT,
-                SongDBHelper.COLUMN_NAME_LANGUAGE,
-                SongDBHelper.COLUMN_NAME_NUMBER
+                DatabaseManager.COLUMN_NAME_UUID,
+                DatabaseManager.COLUMN_NAME_TITLE,
+                DatabaseManager.COLUMN_NAME_TEXT,
+                DatabaseManager.COLUMN_NAME_LANGUAGE,
+                DatabaseManager.COLUMN_NAME_NUMBER
         };
 
-        String selection = SongDBHelper.COLUMN_NAME_LANGUAGE + " = ?";
+        String selection = DatabaseManager.COLUMN_NAME_LANGUAGE + " = ?";
         String[] selectionArgs1 = {language};
 
-        String sortOrder = SongDBHelper.COLUMN_NAME_TITLE + " DESC";
+        String sortOrder = DatabaseManager.COLUMN_NAME_TITLE + " DESC";
 
-        Cursor cursor = database.query(SongDBHelper.TABLE_NAME, projection, selection,
+        Cursor cursor = database.query(DatabaseManager.TABLE_NAME, projection, selection,
                 selectionArgs1, null, null, sortOrder);
 
         cursor.moveToFirst();
@@ -90,17 +80,17 @@ public class SongDataSource {
     }
 
     public List<SongInfo> getAllSongs() {
-        this.open();
         List<SongInfo> songs = new ArrayList<SongInfo>();
         String select = "SELECT * FROM songs";
-        Cursor cursor = database.rawQuery(select,null);
-                //database.query(SongDBHelper.TABLE_NAME, allColumns, null, null, null, null,null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            SongInfo songInfo = cursorToSong(cursor);
-            songs.add(songInfo);
-            cursor.moveToNext();
+        Cursor cursor = dbHelper.open().rawQuery(select,null);
+        //Cursor cursor = database.query(SongDBHelper.TABLE_NAME, allColumns, null, null, null, null,null);
+        //database.rawQuery(select,null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            do {
+                SongInfo songInfo = cursorToSong(cursor);
+                songs.add(songInfo);
+            } while (cursor.moveToNext());
         }
         // make sure to close the cursor
         cursor.close();
