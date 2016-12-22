@@ -51,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        SongDataSource songDataSource = new SongDataSource(this);
+        List<SongInfo> songInfoList = songDataSource.getAllSongs();
+        RussianSongs = songDataSource.getSongsByLanguage("russian");
+        EnglishSongs = songDataSource.getSongsByLanguage("english");
+        if (!songInfoList.isEmpty()) {
+            SongInfo songInfo = songInfoList.get(0);
+        }
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
@@ -62,11 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (tabLayout != null)
             tabLayout.setupWithViewPager(mViewPager);
 
-        SongDataSource songDataSource = new SongDataSource(this);
-        List<SongInfo> songInfoList = songDataSource.getAllSongs();
-        if (!songInfoList.isEmpty()) {
-            SongInfo songInfo = songInfoList.get(0);
-        }
+
         //songDataSource.close();
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //      fab.setOnClickListener(new View.OnClickListener() {

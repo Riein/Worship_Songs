@@ -20,7 +20,7 @@ public class SongDataSource {
 
     private SQLiteDatabase database;
     private DatabaseManager dbHelper;
-    private String[] allColumns = {
+    private String[] mAllColumns = {
             DatabaseManager.COLUMN_NAME_UUID,
             DatabaseManager.COLUMN_NAME_TITLE,
             DatabaseManager.COLUMN_NAME_TEXT,
@@ -47,31 +47,29 @@ public class SongDataSource {
      * @return
      */
 
-    public List<SongInfo> getSongsByLanguage(String language) {
-        List<SongInfo> songs = new ArrayList<SongInfo>();
-
-        String[] projection = {
-                DatabaseManager.COLUMN_NAME_UUID,
-                DatabaseManager.COLUMN_NAME_TITLE,
-                DatabaseManager.COLUMN_NAME_TEXT,
-                DatabaseManager.COLUMN_NAME_LANGUAGE,
-                DatabaseManager.COLUMN_NAME_NUMBER
-        };
+    public ArrayList<SongInfo> getSongsByLanguage(String language) {
+        ArrayList<SongInfo> songs = new ArrayList<>();
 
         String selection = DatabaseManager.COLUMN_NAME_LANGUAGE + " = ?";
         String[] selectionArgs1 = {language};
 
         String sortOrder = DatabaseManager.COLUMN_NAME_TITLE + " DESC";
 
-        Cursor cursor = database.query(DatabaseManager.TABLE_NAME, projection, selection,
-                selectionArgs1, null, null, sortOrder);
+        String select = "SELECT * FROM " + DatabaseManager.TABLE_NAME +
+                " WHERE language = \"" + language + "\" ORDER BY "
+                + DatabaseManager.COLUMN_NAME_LANGUAGE + " ASC";
+        Cursor cursor = dbHelper.open().rawQuery(select, null);
+//                database.query(DatabaseManager.TABLE_NAME, mAllColumns, selection,
+//                selectionArgs1, null, null, sortOrder);
 
-        cursor.moveToFirst();
-        SongInfo songInfo1 = cursorToSong(cursor);
-        while (!cursor.isAfterLast()) {
-            SongInfo songInfo = cursorToSong(cursor);
-            songs.add(songInfo);
-            cursor.moveToNext();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast())
+            {
+                SongInfo songInfo = cursorToSong(cursor);
+                songs.add(songInfo);
+                cursor.moveToNext();
+            }
         }
         // make sure to close the cursor
         cursor.close();
