@@ -55,13 +55,14 @@ public class MainActivity extends AppCompatActivity {
         List<SongInfo> songInfoList = songDataSource.getAllSongs();
         RussianSongs = songDataSource.getSongsByLanguage("russian");
         EnglishSongs = songDataSource.getSongsByLanguage("english");
+        UkrainianSongs = songDataSource.getSongsByLanguage("ukrainian");
         if (!songInfoList.isEmpty()) {
             SongInfo songInfo = songInfoList.get(0);
         }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this, EnglishSongs, UkrainianSongs, RussianSongs);
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -115,17 +116,31 @@ public class MainActivity extends AppCompatActivity {
         final int PAGE_COUNT = 3;
         private String titles[] = new String[] {"English", "Ukrainian", "Russian"};
         private Context context;
+        ArrayList<SongInfo> m_englishList;
+        ArrayList<SongInfo> m_ukrainianList;
+        ArrayList<SongInfo> m_russianList;
 
-        public SectionsPagerAdapter(FragmentManager fm, Context context) {
+        public SectionsPagerAdapter(FragmentManager fm, Context context,
+                                    ArrayList<SongInfo> englishList,
+                                    ArrayList<SongInfo> ukrainianList,
+                                    ArrayList<SongInfo> russianList) {
             super(fm);
             this.context = context;
+            this.m_englishList = englishList;
+            this.m_ukrainianList = ukrainianList;
+            this.m_russianList = russianList;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a SongPager instance and pass in which language is being used
-            return SongPager.newInstance(titles[position]);
+            if (titles[position] == "English")
+                return SongPager.newInstance(titles[position], m_englishList);
+            else if (titles[position] == "Ukrainian")
+                return SongPager.newInstance(titles[position], m_ukrainianList);
+            else
+                return SongPager.newInstance(titles[position], m_russianList);
             //return PlaceholderFragment.newInstance(position + 1);
         }
 

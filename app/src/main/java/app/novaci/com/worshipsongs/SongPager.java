@@ -18,19 +18,20 @@ public class SongPager extends ListFragment {
 
     ArrayList<RowItem> rowItems;
     String m_language;
+    ArrayList<SongInfo> m_list;
 
     public SongPager() {
 
     }
 
-    public static SongPager newInstance(String language) {
+    public static SongPager newInstance(String language, ArrayList<SongInfo> list) {
         SongPager s = new SongPager();
 
         // Supply language as an argument
         Bundle args = new Bundle();
         args.putString("language", language);
+        args.putSerializable("list", list);
         s.setArguments(args);
-
         return s;
     }
 
@@ -38,6 +39,7 @@ public class SongPager extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         m_language = getArguments() != null ? getArguments().getString("language") : "English";
+        m_list = (ArrayList<SongInfo>) getArguments().getSerializable("list");
     }
 
     /**
