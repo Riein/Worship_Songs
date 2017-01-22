@@ -25,7 +25,7 @@ public class DatabaseManager {
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + TABLE_NAME + " (" +
+            "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
                     COLUMN_NAME_UUID + " INTEGER PRIMARY KEY," +
                     COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     COLUMN_NAME_LANGUAGE + TEXT_TYPE + COMMA_SEP +

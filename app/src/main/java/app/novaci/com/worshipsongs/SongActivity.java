@@ -18,5 +18,11 @@ public class SongActivity extends AppCompatActivity {
 
         TextView titleView = (TextView) findViewById(R.id.song_title);
         titleView.setText(title);
+        TextView descriptionView = (TextView) findViewById(R.id.body);
+        descriptionView.setText(desc);
+
+        // Remove Data
+        extras.remove("title");
+        extras.remove("description");
     }
 }

@@ -63,17 +63,11 @@ public class SongPager extends ListFragment {
 
         rowItems = new ArrayList<>();
         //Read Info from database?
-        if (m_language == "English") {
 
-        } else if (m_language == "Ukrainian") {
+        String titles[] = getTitlesFromList();//getResources().getStringArray(R.array.russiantitles);
+        String descriptions[] = getDescriptionsFromList();//getResources().getStringArray(R.array.russiantext);
 
-        } else if (m_language == "Russian") {
-
-        }
-        String titles[] = getResources().getStringArray(R.array.russiantitles);
-        String descriptions[] = getResources().getStringArray(R.array.russiantext);
-
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < m_list.size(); i++) {
             RowItem item = new RowItem(titles[i], descriptions[i]);
             rowItems.add(item);
         }
@@ -87,4 +81,23 @@ public class SongPager extends ListFragment {
         getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
     }
 
+    public String[] getTitlesFromList(){
+        if (m_list.size() == 0)
+            return null;
+        String titleList[] = new String[m_list.size()];
+        for (int i = 0; i < m_list.size(); i++){
+            titleList[i] = m_list.get(i).getTitle();
+        }
+        return titleList;
+    }
+
+    public String[] getDescriptionsFromList(){
+        if (m_list.size() == 0)
+            return null;
+        String descriptionList[] = new String[m_list.size() + 1];
+        for (int i = 0; i < m_list.size(); i++){
+            descriptionList[i] = m_list.get(i).getText();
+        }
+        return descriptionList;
+    }
 }

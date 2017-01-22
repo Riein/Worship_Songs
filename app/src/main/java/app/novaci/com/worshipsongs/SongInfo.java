@@ -1,12 +1,14 @@
 package app.novaci.com.worshipsongs;
 
+import java.io.Serializable;
+
 /**
  * Created by Sasha on 10/7/2016.
  * Holds information for each song including
  * Title, text and language
  */
 
-public class SongInfo {
+public class SongInfo implements Serializable{
 
     private int song_UUID;
     private String song_title;

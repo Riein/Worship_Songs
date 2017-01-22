@@ -52,13 +52,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         SongDataSource songDataSource = new SongDataSource(this);
-        List<SongInfo> songInfoList = songDataSource.getAllSongs();
+        //List<SongInfo> songInfoList = songDataSource.getAllSongs();
         RussianSongs = songDataSource.getSongsByLanguage("russian");
         EnglishSongs = songDataSource.getSongsByLanguage("english");
         UkrainianSongs = songDataSource.getSongsByLanguage("ukrainian");
-        if (!songInfoList.isEmpty()) {
-            SongInfo songInfo = songInfoList.get(0);
-        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

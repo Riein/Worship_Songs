@@ -60,6 +60,7 @@ public class CustomAdapter extends BaseAdapter{
             RowItem row = rowItems.get(position);
 
             holder.title.setText(row.getText());
+//            holder.description.setText(row.getDescription());
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
