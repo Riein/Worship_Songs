@@ -51,29 +51,33 @@ public class CustomAdapter extends BaseAdapter{
         Holder holder = null;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
+        // If the View has not been created, create it, else use it again to avoid recreating each time
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.fragment_main, null);
-            holder = new Holder();
-            holder.title = (TextView) convertView.findViewById(R.id.firstLine);
-            holder.description = (TextView) convertView.findViewById(R.id.secondLine);
-
-            RowItem row = rowItems.get(position);
-
-            holder.title.setText(row.getText());
-//            holder.description.setText(row.getDescription());
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, SongActivity.class);
-                    intent.putExtra("title", rowItems.get(position).getText());
-                    intent.putExtra("description", rowItems.get(position).getDescription());
-                    context.startActivity(intent);
-                }
-            });
-            convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
+
+        holder = new Holder();
+        holder.title = (TextView) convertView.findViewById(R.id.firstLine);
+        holder.description = (TextView) convertView.findViewById(R.id.secondLine);
+
+        RowItem row = rowItems.get(position);
+
+        holder.title.setText(row.getText());
+//            holder.description.setText(row.getDescription());
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SongActivity.class);
+                intent.putExtra("title", rowItems.get(position).getText());
+                intent.putExtra("description", rowItems.get(position).getDescription());
+                context.startActivity(intent);
+            }
+        });
+        convertView.setTag(holder);
+
 
         return convertView;
     }

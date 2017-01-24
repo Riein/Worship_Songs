@@ -68,8 +68,10 @@ public class SongPager extends ListFragment {
         String descriptions[] = getDescriptionsFromList();//getResources().getStringArray(R.array.russiantext);
 
         for (int i = 0; i < m_list.size(); i++) {
-            RowItem item = new RowItem(titles[i], descriptions[i]);
-            rowItems.add(item);
+            if (titles[i] != "") {
+                RowItem item = new RowItem(titles[i], descriptions[i]);
+                rowItems.add(item);
+            }
         }
         CustomAdapter adapter = new CustomAdapter(getActivity(), rowItems);
         setListAdapter(adapter);

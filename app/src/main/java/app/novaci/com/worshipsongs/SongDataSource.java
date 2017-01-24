@@ -57,7 +57,7 @@ public class SongDataSource {
 
         String select = "SELECT * FROM " + DatabaseManager.TABLE_NAME +
                 " WHERE language = \"" + language + "\" ORDER BY "
-                + DatabaseManager.COLUMN_NAME_LANGUAGE + " ASC";
+                + DatabaseManager.COLUMN_NAME_TITLE + " ASC";
         Cursor cursor = dbHelper.open().query(DatabaseManager.TABLE_NAME, mAllColumns, selection,
                 selectionArgs1, null, null, sortOrder);
         //dbHelper.open().rawQuery(select, null);
