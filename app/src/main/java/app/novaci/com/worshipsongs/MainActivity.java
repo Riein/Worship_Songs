@@ -20,7 +20,10 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<SongInfo> UkrainianSongs;
     private ArrayList<SongInfo> RussianSongs;
     SQLiteOpenHelper m_DBHelper;
+
+    //private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         if (tabLayout != null)
             tabLayout.setupWithViewPager(mViewPager);
 
+        /*mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest); */
 
         //songDataSource.close();
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
