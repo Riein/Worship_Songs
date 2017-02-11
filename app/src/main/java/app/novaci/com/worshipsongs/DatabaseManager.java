@@ -35,7 +35,7 @@ public class DatabaseManager {
             "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     private static final String DATABASE_NAME = "songs.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private String mDatabasePath;
     private DBHelper mDatabaseHelper;

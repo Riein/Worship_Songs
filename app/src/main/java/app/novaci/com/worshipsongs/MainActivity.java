@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         final int PAGE_COUNT = 3;
-        private String titles[] = new String[] {"English", "Ukrainian", "Russian"};
+        private String titles[] = new String[] {"English", "Український", "Русский"};
         private Context context;
         ArrayList<SongInfo> m_englishList;
         ArrayList<SongInfo> m_ukrainianList;
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             // Return a SongPager instance and pass in which language is being used
             if (titles[position] == "English")
                 return SongPager.newInstance(titles[position], m_englishList);
-            else if (titles[position] == "Ukrainian")
+            else if (titles[position] == "Український")
                 return SongPager.newInstance(titles[position], m_ukrainianList);
             else
                 return SongPager.newInstance(titles[position], m_russianList);
