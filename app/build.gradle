@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "app.novaci.com.worshipsongs"
+        applicationId "app.novaci.com.thensingsmysoul"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

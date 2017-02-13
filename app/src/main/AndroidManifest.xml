@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.novaci.com.worshipsongs">
+    package="app.novaci.com.thensingsmysoul">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="app.novaci.com.thensingsmysoul.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SongActivity"></activity>
+        <activity android:name="app.novaci.com.thensingsmysoul.SongActivity"></activity>
     </application>
 
 </manifest>

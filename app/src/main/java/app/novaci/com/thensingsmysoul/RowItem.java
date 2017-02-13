@@ -1,4 +1,4 @@
-package app.novaci.com.worshipsongs;
+package app.novaci.com.thensingsmysoul;
 
 /**
  * Created by Sasha on 7/26/2016.

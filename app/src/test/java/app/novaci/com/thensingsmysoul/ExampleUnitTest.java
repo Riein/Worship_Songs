@@ -1,4 +1,4 @@
-package app.novaci.com.worshipsongs;
+package app.novaci.com.thensingsmysoul;
 
 import org.junit.Test;
 

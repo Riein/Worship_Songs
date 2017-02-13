@@ -1,4 +1,4 @@
-package app.novaci.com.worshipsongs;
+package app.novaci.com.thensingsmysoul;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
