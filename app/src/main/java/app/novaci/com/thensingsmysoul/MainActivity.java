@@ -14,6 +14,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<SongInfo> RussianSongs;
     SQLiteOpenHelper m_DBHelper;
 
-    //private AdView mAdView;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-2974888235042322~6904381296");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         SongDataSource songDataSource = new SongDataSource(this);
         //List<SongInfo> songInfoList = songDataSource.getAllSongs();
@@ -64,9 +73,7 @@ public class MainActivity extends AppCompatActivity {
         if (tabLayout != null)
             tabLayout.setupWithViewPager(mViewPager);
 
-        /*mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest); */
+
 
         //songDataSource.close();
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
